@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DemonBoy_Book
+  m_Mask: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: book
+    m_Weight: 1
+  - m_Path: bookArmature
+    m_Weight: 1
+  - m_Path: bookArmature/body
+    m_Weight: 1
+  - m_Path: bookArmature/body/L_side
+    m_Weight: 1
+  - m_Path: bookArmature/body/R_side
+    m_Weight: 1
+  - m_Path: coat
+    m_Weight: 0
+  - m_Path: demonboyArmature
+    m_Weight: 0
+  - m_Path: demonboyArmature/bodyBottom
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop/L_arm
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop/L_armTop
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop/L_armTop/L_hand
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop/neck
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop/neck/Head
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop/neck/Head/head
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop/neck/Head/head/horn
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop/neck/Head/head/ring
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop/R_arm
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop/R_armTop
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop/R_armTop/R_hand
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop/scarfTail1
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop/scarfTail2
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/bodyTop/skarf
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/L_legTop
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/L_legTop/L_legMiddle
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/L_legTop/L_legMiddle/L_legBottom
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/L_legTop/L_legMiddle/L_legBottom/L_feet
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/R_legTop
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/R_legTop/R_legMiddle
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/R_legTop/R_legMiddle/R_legBottom
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/R_legTop/R_legMiddle/R_legBottom/R_feet
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/tail_1
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/tail_1/tail_2
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/tail_1/tail_2/tail_3
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/tail_1/tail_2/tail_3/tail_4
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/tail_1/tail_2/tail_3/tail_4/tail_5
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/tail_1/tail_2/tail_3/tail_4/tail_5/tail_6
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/tail_1/tail_2/tail_3/tail_4/tail_5/tail_6/tail_7
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/tail_1/tail_2/tail_3/tail_4/tail_5/tail_6/tail_7/tail_8
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/tail_1/tail_2/tail_3/tail_4/tail_5/tail_6/tail_7/tail_8/tail_9
+    m_Weight: 1
+  - m_Path: demonboyArmature/bodyBottom/tailTop
+    m_Weight: 1
+  - m_Path: demonboyArmature/L_leg
+    m_Weight: 1
+  - m_Path: demonboyArmature/R_leg
+    m_Weight: 1
+  - m_Path: L_arm
+    m_Weight: 0
+  - m_Path: L_leg
+    m_Weight: 0
+  - m_Path: R_arm
+    m_Weight: 0
+  - m_Path: R_leg
+    m_Weight: 0
+  - m_Path: tail
+    m_Weight: 0
