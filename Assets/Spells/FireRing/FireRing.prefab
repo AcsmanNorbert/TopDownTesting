@@ -85,15 +85,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   castTime: 1
   visualEffect: {fileID: 6068681137107820830}
-  explosionDamage: 10
-  explosionRadius: 3
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  causeFire: 0
-  burnDamage: 6
-  burnTicks: 3
-  burnDuration: 3
+  damage:
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 512
+    directDamage: 0
+    hitRadius: 0
+    explosionDamage: 5
+    explosionRadius: 3
+    fireDamage: 1
   showGizmos: 1
 --- !u!73398921 &6068681137107820831
 VFXRenderer:

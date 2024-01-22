@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using System.Threading;
 
 public class DamageNumberDisplay : MonoBehaviour
 {
@@ -10,21 +9,21 @@ public class DamageNumberDisplay : MonoBehaviour
     [SerializeField] private bool animate = true;
     private Vector3 targetLocation;
 
-    public void SetDisplay(Vector3 position, float damage, IDamageable.DMGType dmgType)
+    public void SetDisplay(Vector3 position, float damage, Damage.DamageType dmgType)
     {
         targetLocation = position;
         textBox.text = damage.ToString();
         switch (dmgType)
         {
-            case IDamageable.DMGType.Direct:
+            case Damage.DamageType.Direct:
                 textBox.color = Color.white;
                 textBox.horizontalAlignment = HorizontalAlignmentOptions.Center;
                 break;
-            case IDamageable.DMGType.AreaOfEffect:
+            case Damage.DamageType.AreaOfEffect:
                 textBox.color = Color.cyan;
                 textBox.horizontalAlignment = HorizontalAlignmentOptions.Right;
                 break;
-            case IDamageable.DMGType.DamageOverTime:
+            case Damage.DamageType.DamageOverTime:
                 textBox.color = Color.yellow;
                 textBox.horizontalAlignment = HorizontalAlignmentOptions.Left;
                 break;

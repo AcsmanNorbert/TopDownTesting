@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
@@ -14,11 +13,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         currentHealth = maxHealth;
     }
 
-    public void Damage(float damage, IDamageable.DMGType dmgType, Transform damager)
+    public void Damage(float damage, Damage.DamageType dmgType, Transform damager)
     {
         currentHealth -= damage;
         GameManager.i.numberDisplay.SpawnDisplay(transform.position, damage, dmgType);
-        /*if(dmgType == IDamageable.DMGType.AreaOfEffect)
+        /*if(dmgType == Damage.DamageType.AreaOfEffect)
             movementAI.ApplyForce(damager);*/
         if (currentHealth <= 0f)
             Dies();

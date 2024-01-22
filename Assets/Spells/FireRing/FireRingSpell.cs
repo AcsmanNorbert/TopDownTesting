@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -7,25 +6,20 @@ public class FireRingSpell : MonoBehaviour
 {
     [SerializeField] float castTime;
     [SerializeField] VisualEffect visualEffect;
+
     [Space(3)]
+    [SerializeField] Damage damage;
 
-    [Header("Data")]
-    [SerializeField] float explosionDamage;
-    [SerializeField] float explosionRadius;
-    [SerializeField] LayerMask layerMask;
-
-    [Space(5)]
-    [Header("Burn Damage")]
-    [SerializeField] bool causeFire;
-    [SerializeField] float burnDamage;
-    [SerializeField] int burnTicks;
-    [SerializeField] float burnDuration;
+    [Space(3)]
     public bool showGizmos;
 
     bool isPlaying;
 
     private void Start()
     {
+        visualEffect.SetFloat("FlameDelay", castTime);
+        visualEffect.SetFloat("FlameSize", damage.explosionRadius);
+        visualEffect.Play();
         StartCoroutine(Lerp());
     }
 
@@ -38,29 +32,10 @@ public class FireRingSpell : MonoBehaviour
 
     private IEnumerator Lerp()
     {
-        visualEffect.SetFloat("FlameDelay", castTime);
-        visualEffect.SetFloat("FlameSize", explosionRadius);
-        visualEffect.Play();
         yield return new WaitForSeconds(castTime);
-        Explosion();
+        SpellCasting.SphereExplosion(transform, damage);
         yield return new WaitForSeconds(1f);
         isPlaying = true;
-    }
-
-    private void Explosion()
-    {
-        Collider[] explosionHit = Physics.OverlapSphere(transform.position, explosionRadius, ~layerMask);
-        foreach (var item in explosionHit)
-        {
-            IDamageable damageable2 = item.gameObject.GetComponent<IDamageable>();
-            if (damageable2 != null)
-            {
-                damageable2.Damage(explosionDamage, IDamageable.DMGType.AreaOfEffect, transform);
-                if (causeFire)
-                    item.AddComponent<DOTDebuff>().DamageOverTime(
-                        burnDamage, burnTicks, burnDuration, DOTDebuff.DOTType.Fire);
-            }
-        }
     }
 
     private void OnDrawGizmos()
@@ -68,7 +43,7 @@ public class FireRingSpell : MonoBehaviour
         if (showGizmos)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, explosionRadius);
+            Gizmos.DrawWireSphere(transform.position, damage.explosionRadius);
         }
     }
 }

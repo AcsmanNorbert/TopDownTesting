@@ -11,7 +11,7 @@ public class MeleeAttack : MonoBehaviour
         {
             if (collider.gameObject.layer != gameObject.GetComponentInParent<Transform>().gameObject.layer)
             {
-                damageable.Damage(meleeDamage, IDamageable.DMGType.Direct, transform);
+                damageable.Damage(meleeDamage, Damage.DamageType.Direct, transform);
             }
         }
     }

@@ -33,7 +33,7 @@ public class IceBomber : MonoBehaviour
                 if (damageable != null)
                 {
                     Debug.Log(item.gameObject.name);
-                    damageable.Damage(damage, IDamageable.DMGType.AreaOfEffect, transform);
+                    damageable.Damage(damage, Damage.DamageType.AreaOfEffect, transform);
                 }
             }
             GameObject.Destroy(gameObject);

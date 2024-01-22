@@ -47,23 +47,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualEffect: {fileID: 907849140856124235}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  damage: 1
+  damage:
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 512
+    directDamage: 1
+    hitRadius: 0
+    explosionDamage: 0
+    explosionRadius: 0
+    fireDamage: 1
   duration: 5
   wallWidth: 6
   wallDepth: 2
   tickTimer: 0.5
-  causeFire: 1
-  burnDamage: 5
-  burnTicks: 5
-  burnDuration: 2
   projectileMask:
     serializedVersion: 2
     m_Bits: 256
   blockProjectile: 1
-  enhanceProjectile: 0
   drawGizmos: 1
 --- !u!2083052967 &907849140856124235
 VisualEffect:

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc0d99cf4739ee4ca794e8940ce382c, type: 3}
   m_Name: ConsumeFire
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 748322990686515211, guid: a9778defdd113c442a0df3bc50235976, type: 3}
   baseCooldown: 1
   castPosition: 0
   castType: 3

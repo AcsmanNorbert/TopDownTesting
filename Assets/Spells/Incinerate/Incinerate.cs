@@ -4,47 +4,37 @@ using UnityEngine;
 public class Incinerate : MonoBehaviour
 {
     //[SerializeField] VisualEffect visualEffect;
-    [SerializeField] LayerMask layerMask;
-
-    [Space(3)]
-    [Header("Data")]
-    [SerializeField] float damage;
-    [SerializeField] float explosionRadius;
-
-    [Space(3)]
-    [Header("Fire Damage")]
-    [SerializeField] bool causeFire;
-    [SerializeField] float burnDamage;
-    [SerializeField] int burnTicks;
-    [SerializeField] float burnDuration;
+    [SerializeField] Damage damage;
+    [SerializeField] bool drawGizmos;
 
     bool isPlaying;
 
     void Start()
     {
         StartCoroutine(DoAttack());
+    }
+
+    private void Update()
+    {
         if (isPlaying)
             //if (visualEffect.aliveParticleCount == 0)
-                Destroy(gameObject);
+            Destroy(gameObject);
     }
 
     private IEnumerator DoAttack()
     {
-        Collider[] explosionHit = Physics.OverlapSphere(transform.position, explosionRadius, ~layerMask);
-        foreach (var collider in explosionHit)
-        {
-            IDamageable damageable = collider.gameObject.GetComponent<IDamageable>();
-            if (damageable != null)
-            {
-                damageable.Damage(damage, IDamageable.DMGType.AreaOfEffect, transform);
-                if (causeFire)
-                    DOTDebuff.CauseFire(
-                        collider.gameObject, burnDamage, burnTicks, burnDuration, DOTDebuff.DOTType.Fire);
-            }
-        }
+        SpellCasting.SphereExplosion(transform, damage);
 
         yield return new WaitForSeconds(1f);
-
         isPlaying = true;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (drawGizmos)
+        {
+            Gizmos.color = new Color(1f, 0f, 0f);
+            Gizmos.DrawWireSphere(transform.position, damage.explosionRadius);
+        }
     }
 }

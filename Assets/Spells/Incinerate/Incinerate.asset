@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc0d99cf4739ee4ca794e8940ce382c, type: 3}
   m_Name: Incinerate
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 8034483815118794716, guid: ed3aafd28c8412743afdf8fd2506b30e, type: 3}
   baseCooldown: 1
   castPosition: 0
   castType: 3
