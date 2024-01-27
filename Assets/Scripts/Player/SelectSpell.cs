@@ -61,9 +61,8 @@ public class SelectSpell : MonoBehaviour
                         break;
                     case CastType.Melee:
                         spell.transform.position = mesh.transform.position;
-                        spell.transform.SetParent(transform);
-                        if (currentSpell.castPosition == 1)
-                            spell.transform.rotation = mesh.transform.rotation;
+                        if (currentSpell.castPosition == 0)
+                            spell.transform.SetParent(mesh.transform);
                         break;
                 }
             }

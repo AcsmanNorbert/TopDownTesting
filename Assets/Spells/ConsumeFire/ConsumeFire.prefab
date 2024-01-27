@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c226bff6d1a1ff04ba2cf47f5dafe020, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castDelay: 1
+  castDelay: 2
   firstDamage:
     layerMask:
       serializedVersion: 2
@@ -62,5 +62,5 @@ MonoBehaviour:
     hitRadius: 0
     explosionDamage: 3
     explosionRadius: 8
-    fireDamage: 0
+    fireDamage: 2
   drawGizmos: 1

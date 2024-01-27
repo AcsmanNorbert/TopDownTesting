@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 8034483815118794716, guid: ed3aafd28c8412743afdf8fd2506b30e, type: 3}
   baseCooldown: 1
-  castPosition: 0
+  castPosition: 1
   castType: 3

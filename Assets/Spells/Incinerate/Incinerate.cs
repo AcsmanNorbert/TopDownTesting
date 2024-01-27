@@ -1,9 +1,10 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Incinerate : MonoBehaviour
 {
-    //[SerializeField] VisualEffect visualEffect;
+    [SerializeField] VisualEffect visualEffect;
     [SerializeField] Damage damage;
     [SerializeField] bool drawGizmos;
 
@@ -17,7 +18,7 @@ public class Incinerate : MonoBehaviour
     private void Update()
     {
         if (isPlaying)
-            //if (visualEffect.aliveParticleCount == 0)
+            if (visualEffect.aliveParticleCount == 0)
             Destroy(gameObject);
     }
 

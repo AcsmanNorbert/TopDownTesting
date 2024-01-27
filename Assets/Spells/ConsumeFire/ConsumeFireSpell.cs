@@ -30,19 +30,21 @@ public class ConsumeFireSpell : MonoBehaviour
         
         if(colliders != null)
         {
-            yield return new WaitForSeconds(castDelay);
             int multyplier = 0;
             foreach (var collider in colliders)
             {
                 FireDOT onFire = collider.GetComponent<FireDOT>();
                 if (onFire != null)
-                    multyplier++;
-            }
+                {
+                    Destroy(onFire);
+                    multyplier++; 
+                }
+            }      
             if (multyplier > 0)
             {
-                Damage multypliedDamage = secondDamage;
-                multypliedDamage.explosionDamage = multypliedDamage.explosionDamage * multyplier;
-                SpellCasting.SphereExplosion(transform, multypliedDamage);
+                yield return new WaitForSeconds(castDelay);
+                secondDamage.explosionDamage = secondDamage.explosionDamage * multyplier;
+                SpellCasting.SphereExplosion(transform, secondDamage);
             }
         }
 

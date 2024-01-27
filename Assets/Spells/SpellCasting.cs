@@ -132,7 +132,6 @@ public class FireDOT : MonoBehaviour
         while (currentTickAmount > 0)
         {
             yield return new WaitForSeconds(tickRate);
-            Debug.Log("asd");
             IDamageable damageable = GetComponent<IDamageable>();
             if (damageable != null)
             {
