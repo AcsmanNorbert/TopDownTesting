@@ -1,34 +1,47 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class ConsumeFireSpell : MonoBehaviour
 {
-    //[SerializeField] VisualEffect visualEffect;
+    [SerializeField] GameObject trailVFX;
+    [SerializeField] VisualEffect explosionVisualEffect;
+    [SerializeField] ParticleSystem ps;
     [SerializeField] float castDelay = 1f;
     [SerializeField] Damage firstDamage;
     [SerializeField] Damage secondDamage;
+    [SerializeField] float extraDamage;
     [SerializeField] bool drawGizmos;
 
     bool isPlaying;
 
+    public static event Action<float> OnExplosion;
+    public static event Action<Transform> OnSpawnTrail;
+
     void Start()
     {
         StartCoroutine(DoAttack());
+        ParticleSystem.MainModule main = ps.main;
+        main.startLifetime = castDelay;
+        main.startSize = firstDamage.explosionRadius + 1;
+        ps.Play();
     }
 
     private void Update()
     {
         if (isPlaying)
-            //if (visualEffect.aliveParticleCount == 0)
-            Destroy(gameObject);
+            if (explosionVisualEffect.aliveParticleCount <= 0 && ps.particleCount <= 0)
+                Destroy(gameObject);        
     }
 
     private IEnumerator DoAttack()
     {
+        OnExplosion = null;
+        OnSpawnTrail = null;
         SpellCasting.SphereExplosion(transform, firstDamage, out List<Collider> colliders);
-        
-        if(colliders != null)
+        if (colliders != null)
         {
             int multyplier = 0;
             foreach (var collider in colliders)
@@ -37,17 +50,22 @@ public class ConsumeFireSpell : MonoBehaviour
                 if (onFire != null)
                 {
                     Destroy(onFire);
-                    multyplier++; 
+                    multyplier++;
+                    
+                    GameObject newTrail = Instantiate(trailVFX);
+                    newTrail.transform.position = collider.transform.position;
                 }
-            }      
+            }
+            yield return new WaitForSeconds(0.02f);
+            OnSpawnTrail?.Invoke(transform.parent);
             if (multyplier > 0)
             {
                 yield return new WaitForSeconds(castDelay);
-                secondDamage.explosionDamage = secondDamage.explosionDamage * multyplier;
+                OnExplosion?.Invoke(secondDamage.explosionRadius);
+                secondDamage.explosionDamage = secondDamage.explosionDamage + extraDamage * multyplier;
                 SpellCasting.SphereExplosion(transform, secondDamage);
             }
         }
-
         yield return new WaitForSeconds(1f);
         isPlaying = true;
     }
