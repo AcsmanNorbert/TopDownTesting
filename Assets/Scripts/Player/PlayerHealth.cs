@@ -16,7 +16,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         rb = gameObject.GetComponent<Rigidbody>();
     }
 
-    public void Damage(float damage, Damage.DamageType dmgType, Transform damager)
+    public void DoDamage(float damage, Damage.DamageType dmgType, Transform damager)
     {
         if (!invulnarable)
         {

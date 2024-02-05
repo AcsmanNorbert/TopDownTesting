@@ -1,10 +1,9 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class IceBomber : MonoBehaviour
 {
-    [SerializeField] MeleeEnemy meleeEnemy;
+    [SerializeField] EnemyNavMesh navMeshAgent;
 
     [Space(3)]
     [Header("Data")]
@@ -24,7 +23,7 @@ public class IceBomber : MonoBehaviour
     {
         yield return new WaitForSeconds(explosionDelay);
 
-        if(meleeEnemy.currentState != IMovementAI.State.Dead)
+        if(navMeshAgent.currentState != EnemyNavMesh.State.Dead)
         {
             Collider[] explosionHit = Physics.OverlapSphere(transform.position, explosionRadius, ~layerMask);
             foreach (var item in explosionHit)
@@ -33,10 +32,10 @@ public class IceBomber : MonoBehaviour
                 if (damageable != null)
                 {
                     Debug.Log(item.gameObject.name);
-                    damageable.Damage(damage, Damage.DamageType.AreaOfEffect, transform);
+                    damageable.DoDamage(damage, Damage.DamageType.AreaOfEffect, transform);
                 }
             }
-            GameObject.Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 

@@ -27,7 +27,7 @@ public class FireRingSpell : MonoBehaviour
     {
         if (isPlaying)
             if (visualEffect.aliveParticleCount <= 0)
-                GameObject.Destroy(gameObject);
+                Destroy(gameObject);
     }
 
     private IEnumerator Lerp()

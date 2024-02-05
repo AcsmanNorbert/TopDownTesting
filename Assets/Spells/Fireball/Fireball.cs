@@ -1,12 +1,16 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 
 public class Fireball : MonoBehaviour
 {
     [SerializeField] VisualEffect visualEffect;
+    [SerializeField] GameObject explosion;
     [SerializeField] Rigidbody rigibody;
     [SerializeField] float projectileSpeed;
     [SerializeField] Damage damage;
+    [SerializeField] List<Collider> projectileColliders;
 
     [Space(3)]
     [SerializeField] bool drawGizmos = true;
@@ -22,8 +26,9 @@ public class Fireball : MonoBehaviour
     {
         if (!hasHit)
         {
-            if (SpellCasting.SphereProjectile(transform, damage))
+            if (SpellCasting.SphereProjectile(transform, damage, out List<Collider> colliders))
             {
+                projectileColliders = colliders;
                 if (damage.explosionDamage > 0)
                     SpellCasting.SphereExplosion(transform, damage);
                 SelfDestroy();

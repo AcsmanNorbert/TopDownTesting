@@ -42,8 +42,8 @@ public class SpellCasting
                 colliders.Add(collider);
                 if (damage.explosionDamage > 0)
                 {
-                    damageable.Damage(damage.explosionDamage, Damage.DamageType.AreaOfEffect, transform);
-                    //Debug.Log(damage.explosionDamage + " DMG to "+ collider.name);
+                    damageable.DoDamage(damage.explosionDamage, Damage.DamageType.AreaOfEffect, transform);
+                    Debug.Log(damage.explosionDamage + " DMG to "+ collider.name);
                 }
                 if (damage.fireDamage > 0)
                     FireDOT.CauseFire(collider.gameObject, damage.fireDamage);
@@ -74,8 +74,8 @@ public class SpellCasting
                         colliders.Add(collider);
                         if (damage.directDamage > 0)
                         {
-                            damageable.Damage(damage.directDamage, Damage.DamageType.Direct, transform);
-                            //Debug.Log("Direct damage: " + collider.name);
+                            damageable.DoDamage(damage.directDamage, Damage.DamageType.Direct, transform);
+                            Debug.Log("Direct damage: " + collider.name);
                         }
                         return true;
                     }
@@ -135,7 +135,7 @@ public class FireDOT : MonoBehaviour
             IDamageable damageable = GetComponent<IDamageable>();
             if (damageable != null)
             {
-                damageable.Damage(dot, Damage.DamageType.DamageOverTime, transform);
+                damageable.DoDamage(dot, Damage.DamageType.DamageOverTime, transform);
                 //Debug.Log(dot + " DMG");
                 currentTickAmount--;
             }

@@ -55,7 +55,7 @@ public class Firewall : MonoBehaviour
                     hitColliders.Add(collider);
                     StartCoroutine(DelayDMG(collider));
 
-                    collider.GetComponent<IDamageable>().Damage(damage.directDamage, Damage.DamageType.Direct, transform);
+                    collider.GetComponent<IDamageable>().DoDamage(damage.directDamage, Damage.DamageType.Direct, transform);
                 }
 
             }

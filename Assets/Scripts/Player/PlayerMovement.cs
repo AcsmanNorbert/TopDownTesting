@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
         #region MOVEMENT
         Vector3 inputMovement = new Vector3(horizontalMovement, 0, verticalMovement);
         inputMovement = Quaternion.Euler(0, Camera.main.gameObject.transform.eulerAngles.y, 0) * inputMovement;
-        transform.position += inputMovement * (speed * Time.deltaTime);
+        transform.position += inputMovement * speed * Time.deltaTime;
 
         //float moveDistance = Vector3.Distance(inputMovement, mesh.transform.position);
         animator.SetFloat("walkingSpeed", Mathf.Abs(horizontalMovement) + Mathf.Abs(verticalMovement));

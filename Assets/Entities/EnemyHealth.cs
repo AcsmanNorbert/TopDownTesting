@@ -5,29 +5,34 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     [Header("Data")]
     public float maxHealth;
     public float currentHealth;
-    private IMovementAI movementAI;
+    EnemyNavMesh enemyNavMesh;
 
     private void Start()
     {
-        movementAI = gameObject.GetComponent<IMovementAI>();
+        enemyNavMesh = gameObject.GetComponent<EnemyNavMesh>();
         currentHealth = maxHealth;
     }
 
-    public void Damage(float damage, Damage.DamageType dmgType, Transform damager)
+    public void DoDamage(float damage, Damage.DamageType dmgType, Transform damager)
     {
         currentHealth -= damage;
-        GameManager.i.numberDisplay.SpawnDisplay(transform.position, damage, dmgType);
-        /*if(dmgType == Damage.DamageType.AreaOfEffect)
-            movementAI.ApplyForce(damager);*/
+
+        DamageNumberHandler numberDisplay = GameManager.i.numberDisplay;
+        if (numberDisplay != null)
+            numberDisplay.SpawnDisplay(transform.position, damage, dmgType);
+
+        //if (dmgType == Damage.DamageType.AreaOfEffect)
+        //enemyNavMesh.ApplyForce(damager);
         if (currentHealth <= 0f)
             Dies();
+        enemyNavMesh.TargetFoundAlert();        
     }
 
     private void Dies()
     {
-        if (movementAI != null)
+        if (enemyNavMesh != null)
         {
-            movementAI.SetState(IMovementAI.State.Dead);
+            enemyNavMesh.SetState(EnemyNavMesh.State.Dead);
             Destroy(this);
         }
         else
