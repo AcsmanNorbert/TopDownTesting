@@ -8,26 +8,9 @@ public class Incinerate : MonoBehaviour
     [SerializeField] Damage damage;
     [SerializeField] bool drawGizmos;
 
-    bool isPlaying;
-
     void Start()
     {
-        StartCoroutine(DoAttack());
-    }
-
-    private void Update()
-    {
-        if (isPlaying)
-            if (visualEffect.aliveParticleCount == 0)
-            Destroy(gameObject);
-    }
-
-    private IEnumerator DoAttack()
-    {
-        SpellCasting.SphereExplosion(transform, damage);
-
-        yield return new WaitForSeconds(1f);
-        isPlaying = true;
+        SpellCasting.SphereBurstCollision(transform, damage);
     }
 
     private void OnDrawGizmos()
@@ -35,7 +18,7 @@ public class Incinerate : MonoBehaviour
         if (drawGizmos)
         {
             Gizmos.color = new Color(1f, 0f, 0f);
-            Gizmos.DrawWireSphere(transform.position, damage.explosionRadius);
+            Gizmos.DrawWireSphere(transform.position, damage.hitRadius);
         }
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8034483815118794714}
   - component: {fileID: -4697478735030291499}
   - component: {fileID: 6864068171329893350}
+  - component: {fileID: -4584064943893641598}
   m_Layer: 0
   m_Name: Incinerate
   m_TagString: Untagged
@@ -51,11 +52,11 @@ MonoBehaviour:
     layerMask:
       serializedVersion: 2
       m_Bits: 512
-    directDamage: 0
-    hitRadius: 0
-    explosionDamage: 1
-    explosionRadius: 5
+    baseDamage: 1
+    hitRadius: 5
+    hitBounds: {x: 0, y: 0, z: 0}
     fireDamage: 1
+    damageType: 0
   drawGizmos: 1
 --- !u!2083052967 &-4697478735030291499
 VisualEffect:
@@ -90,9 +91,9 @@ VisualEffect:
       m_Array: []
     m_Int:
       m_Array:
-      - m_Value: 1
+      - m_Value: 0
         m_Name: HasRing
-        m_Overridden: 1
+        m_Overridden: 0
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
@@ -143,3 +144,18 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &-4584064943893641598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8034483815118794716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c08ef3288c3ce4d9908fa4eb6b7c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualEffects:
+  - {fileID: -4697478735030291499}
+  minimumLifeTime: 1

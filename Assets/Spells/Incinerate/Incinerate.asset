@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Incinerate
   m_EditorClassIdentifier: 
   prefab: {fileID: 8034483815118794716, guid: ed3aafd28c8412743afdf8fd2506b30e, type: 3}
-  baseCooldown: 1
+  baseCooldown: 6
   castPosition: 1
   castType: 3

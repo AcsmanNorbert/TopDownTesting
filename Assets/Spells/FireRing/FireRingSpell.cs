@@ -18,7 +18,7 @@ public class FireRingSpell : MonoBehaviour
     private void Start()
     {
         visualEffect.SetFloat("FlameDelay", castTime);
-        visualEffect.SetFloat("FlameSize", damage.explosionRadius);
+        visualEffect.SetFloat("FlameSize", damage.hitRadius);
         visualEffect.Play();
         StartCoroutine(Lerp());
     }
@@ -33,7 +33,7 @@ public class FireRingSpell : MonoBehaviour
     private IEnumerator Lerp()
     {
         yield return new WaitForSeconds(castTime);
-        SpellCasting.SphereExplosion(transform, damage);
+        SpellCasting.SphereBurstCollision(transform, damage);
         yield return new WaitForSeconds(1f);
         isPlaying = true;
     }
@@ -43,7 +43,7 @@ public class FireRingSpell : MonoBehaviour
         if (showGizmos)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, damage.explosionRadius);
+            Gizmos.DrawWireSphere(transform.position, damage.hitRadius);
         }
     }
 }

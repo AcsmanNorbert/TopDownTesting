@@ -89,11 +89,11 @@ MonoBehaviour:
     layerMask:
       serializedVersion: 2
       m_Bits: 512
-    directDamage: 0
-    hitRadius: 0
-    explosionDamage: 5
-    explosionRadius: 3
+    baseDamage: 5
+    hitRadius: 3
+    hitBounds: {x: 0, y: 0, z: 0}
     fireDamage: 1
+    damageType: 0
   showGizmos: 1
 --- !u!73398921 &6068681137107820831
 VFXRenderer:

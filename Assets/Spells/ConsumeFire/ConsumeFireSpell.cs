@@ -25,7 +25,7 @@ public class ConsumeFireSpell : MonoBehaviour
         StartCoroutine(DoAttack());
         ParticleSystem.MainModule main = ps.main;
         main.startLifetime = castDelay;
-        main.startSize = firstDamage.explosionRadius + 1;
+        main.startSize = firstDamage.hitRadius + 1;
         ps.Play();
     }
 
@@ -40,7 +40,7 @@ public class ConsumeFireSpell : MonoBehaviour
     {
         OnExplosion = null;
         OnSpawnTrail = null;
-        SpellCasting.SphereExplosion(transform, firstDamage, out List<Collider> colliders);
+        SpellCasting.SphereBurstCollision(transform, firstDamage, out List<Collider> colliders);
         if (colliders != null)
         {
             int multyplier = 0;
@@ -61,9 +61,9 @@ public class ConsumeFireSpell : MonoBehaviour
             if (multyplier > 0)
             {
                 yield return new WaitForSeconds(castDelay);
-                OnExplosion?.Invoke(secondDamage.explosionRadius);
-                secondDamage.explosionDamage = secondDamage.explosionDamage + extraDamage * multyplier;
-                SpellCasting.SphereExplosion(transform, secondDamage);
+                OnExplosion?.Invoke(secondDamage.hitRadius);
+                secondDamage.baseDamage = secondDamage.baseDamage + extraDamage * multyplier;
+                SpellCasting.SphereBurstCollision(transform, secondDamage);
             }
         }
         yield return new WaitForSeconds(1f);
@@ -75,9 +75,9 @@ public class ConsumeFireSpell : MonoBehaviour
         if (drawGizmos)
         {
             Gizmos.color = new Color(0f, 0f, 1f);
-            Gizmos.DrawWireSphere(transform.position, firstDamage.explosionRadius);
+            Gizmos.DrawWireSphere(transform.position, firstDamage.hitRadius);
             Gizmos.color = new Color(1f, 0f, 0f);
-            Gizmos.DrawWireSphere(transform.position, secondDamage.explosionRadius);
+            Gizmos.DrawWireSphere(transform.position, secondDamage.hitRadius);
         }
     }
 }

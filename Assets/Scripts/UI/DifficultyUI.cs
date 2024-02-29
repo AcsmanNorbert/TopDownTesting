@@ -1,14 +1,19 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class DifficultyUI : MonoBehaviour
 {
-    public TMP_Text text;
-    public BasicSpawner basicSpawner;
+    [SerializeField] TMP_Text text;
 
-    void Update()
+    void Start()
     {
-        text.text = basicSpawner.difficultyRating.ToString();
-        text.fontSize = 30f + basicSpawner.difficultyRating;
+        RoomManager.OnDifficultyIncrease += RoomManager_OnDifficultyIncrease;
+        text.text = 1.ToString();
+    }
+
+    private void RoomManager_OnDifficultyIncrease(object sender, EventArgs e)
+    {
+        text.text = (RoomManager.currentDifficulty).ToString();
     }
 }

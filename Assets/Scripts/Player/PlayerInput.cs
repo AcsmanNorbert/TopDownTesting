@@ -1,8 +1,10 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerInput
+public static class PlayerInput
 {
+    /*
+    public static float horizontalMovement = Input.GetAxis("Horizontal");
+    public static float verticalMovement = Input.GetAxis("Vertical");*/
     public static Vector3 GetMousePosition(Transform transform)
     {
         Vector3 distanceFromCamera = transform.position;

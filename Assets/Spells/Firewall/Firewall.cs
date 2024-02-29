@@ -10,8 +10,6 @@ public class Firewall : MonoBehaviour
     [Header("Data")]
     [SerializeField] Damage damage;
     [SerializeField][Range(0, 10)] float duration = 5;
-    [SerializeField][Range(0, 10)] float wallWidth = 6;
-    [SerializeField][Range(0, 10)] float wallDepth = 2;
     [SerializeField] float tickTimer = 0.2f;
 
     [Space(3)]
@@ -25,8 +23,8 @@ public class Firewall : MonoBehaviour
 
     private void Start()
     {
-        visualEffect.SetFloat("Width", wallWidth);
-        visualEffect.SetFloat("Depth", wallDepth);
+        visualEffect.SetFloat("Width", damage.hitBounds.x);
+        visualEffect.SetFloat("Depth", damage.hitBounds.z);
         visualEffect.SetFloat("Duration", duration);
 
         StartCoroutine(Lerp());
@@ -37,9 +35,8 @@ public class Firewall : MonoBehaviour
         if (isPlaying)
             if (visualEffect.aliveParticleCount == 0)
                 Destroy(gameObject);
-        Vector3 size = new Vector3(wallWidth, 4, wallDepth);
-
-        if (SpellCasting.BoxExplosion(transform, size, damage, out List<Collider> colliders))
+        /*
+        if (SpellCasting.BoxBurstCollision(transform, damage, out List<Collider> colliders))
         {
             foreach (var collider in colliders)
             {
@@ -55,22 +52,20 @@ public class Firewall : MonoBehaviour
                     hitColliders.Add(collider);
                     StartCoroutine(DelayDMG(collider));
 
-                    collider.GetComponent<IDamageable>().DoDamage(damage.directDamage, Damage.DamageType.Direct, transform);
+                    collider.GetComponent<IDamageable>().DoDamage(damage.baseDamage, Damage.DamageType.Direct, transform);
                 }
-
             }
-        }
+        }*/
 
-        if (blockProjectile)
+        if (!blockProjectile) return;
+
+        Collider[] projectileColliders = Physics.OverlapBox(
+            transform.position, new Vector3(damage.hitBounds.x, 4, 0.5f), transform.rotation, projectileMask);
+        if (projectileColliders != null)
         {
-            Collider[] projectileColliders = Physics.OverlapBox(
-                transform.position, new Vector3(wallWidth, 4, 0.5f), transform.rotation, projectileMask);
-            if (projectileColliders != null)
+            foreach (var collider in projectileColliders)
             {
-                foreach (var collider in projectileColliders)
-                {
-                    Destroy(collider.gameObject);
-                }
+                Destroy(collider.gameObject);
             }
         }
     }
@@ -95,13 +90,13 @@ public class Firewall : MonoBehaviour
             Matrix4x4 gizmoMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
             Gizmos.matrix = gizmoMatrix;
             Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(Vector3.zero, new Vector3(wallWidth, 4, wallDepth));
+            Gizmos.DrawWireCube(Vector3.zero, new Vector3(damage.hitBounds.x, 4, damage.hitBounds.z));
 
             if (blockProjectile)
             {
                 Gizmos.matrix = gizmoMatrix;
                 Gizmos.color = Color.blue;
-                Gizmos.DrawWireCube(Vector3.zero, new Vector3(wallWidth, 4, 0.5f));
+                Gizmos.DrawWireCube(Vector3.zero, new Vector3(damage.hitBounds.x, 4, 0.5f));
             }
         }
     }

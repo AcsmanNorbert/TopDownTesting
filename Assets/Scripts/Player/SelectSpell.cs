@@ -6,12 +6,13 @@ public class SelectSpell : MonoBehaviour
     [SerializeField] GameObject mesh;
     [SerializeField] Transform[] shootingTransforms;
 
-    [Space(3)]
     public Spell[] spells = new Spell[5];
-    public float[] spellCooldowns = new float[5];
+    public float[] spellCooldowns { private set; get; } = new float[5];
 
     private void Update()
     {
+        if (GameManager.isPaused) return;
+
         if (Input.GetKey(KeyCode.Mouse0))
             CastSpell(0);
         if (Input.GetKeyDown(KeyCode.Q))

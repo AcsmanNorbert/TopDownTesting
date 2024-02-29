@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Book
+  - Tile Mesh
+  - Rule Tile
+  - Grid
+  - Combined Mesh
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX
@@ -18,8 +23,8 @@ TagManager:
   - Player
   - Enemy
   - Destructable
-  - 
-  - 
+  - EnemySpawnPoint
+  - Walls
   - 
   - 
   - 

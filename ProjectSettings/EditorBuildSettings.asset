@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Resources/3D Rule Tiles/Sample Scene/GameplayScene.unity
+    guid: 58ea3c6518cc1ab44ace9754e9913ac1
   m_configObjects: {}

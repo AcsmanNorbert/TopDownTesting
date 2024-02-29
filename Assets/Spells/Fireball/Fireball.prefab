@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 2353543215132155888}
   - component: {fileID: 2353543215132155903}
   - component: {fileID: -7813792063280947441}
+  - component: {fileID: 955203953482170285}
   m_Layer: 8
   m_Name: Fireball
   m_TagString: Untagged
@@ -138,7 +139,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2353543215132155897}
   m_LocalRotation: {x: -0.64643025, y: 0, z: 0, w: 0.7629731}
-  m_LocalPosition: {x: -0.43, y: 0, z: -0.12}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5301, y: 1, z: 0.6033}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -261,18 +262,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualEffect: {fileID: 2353543214560313200}
-  explosion: {fileID: 4666150664121925796, guid: 011e5f9ab4718df4e8a44b15ac81cb13, type: 3}
+  explosion: {fileID: 2353543214560313213}
   rigibody: {fileID: 2353543215132155903}
   projectileSpeed: 20
-  damage:
+  directDamage:
     layerMask:
       serializedVersion: 2
       m_Bits: 512
-    directDamage: 2
-    hitRadius: 0.45
-    explosionDamage: 1
-    explosionRadius: 1.5
+    baseDamage: 2
+    hitRadius: 1
+    hitBounds: {x: 0, y: 0, z: 0}
     fireDamage: 0
+    damageType: 0
+  explosionDamage:
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 512
+    baseDamage: 1
+    hitRadius: 3
+    hitBounds: {x: 0, y: 0, z: 0}
+    fireDamage: 0
+    damageType: 1
   drawGizmos: 1
 --- !u!54 &2353543215132155903
 Rigidbody:
@@ -303,6 +313,21 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &955203953482170285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2353543215132155897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c08ef3288c3ce4d9908fa4eb6b7c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualEffects:
+  - {fileID: 2353543214560313200}
+  minimumLifeTime: 1
 --- !u!1 &2353543215485712477
 GameObject:
   m_ObjectHideFlags: 0

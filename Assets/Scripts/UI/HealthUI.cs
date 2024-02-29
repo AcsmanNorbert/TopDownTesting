@@ -4,16 +4,20 @@ using UnityEngine;
 public class HealthUI : MonoBehaviour
 {
     public GameObject player;
-    private PlayerHealth playerHealth;
     public TMP_Text text;
+    Color baseColor;
 
-    void Start()
+    private void Start()
     {
-        playerHealth = player.GetComponent<PlayerHealth>();
+        baseColor = text.color;
     }
 
     void Update()
     {
-        text.text = playerHealth.currentHealth.ToString();
+        text.text = PlayerHealth.currentHealth.ToString();
+        if (PlayerHealth.playerInvulnerable)
+            text.color = Color.yellow;
+        else
+            text.color = baseColor;
     }
 }

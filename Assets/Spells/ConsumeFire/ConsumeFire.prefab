@@ -55,20 +55,20 @@ MonoBehaviour:
     layerMask:
       serializedVersion: 2
       m_Bits: 512
-    directDamage: 0
-    hitRadius: 0
-    explosionDamage: 1
-    explosionRadius: 7
+    baseDamage: 1
+    hitRadius: 5
+    hitBounds: {x: 0, y: 0, z: 0}
     fireDamage: 0
+    damageType: 0
   secondDamage:
     layerMask:
       serializedVersion: 2
       m_Bits: 512
-    directDamage: 0
-    hitRadius: 0
-    explosionDamage: 10
-    explosionRadius: 8
+    baseDamage: 10
+    hitRadius: 6
+    hitBounds: {x: 0, y: 0, z: 0}
     fireDamage: 2
+    damageType: 0
   extraDamage: 2
   drawGizmos: 1
 --- !u!199 &8279459585293475909

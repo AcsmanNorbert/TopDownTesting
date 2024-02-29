@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Firewall
   m_EditorClassIdentifier: 
   prefab: {fileID: 907849140856124239, guid: de38a42883703f745a223d9b851d0d6b, type: 3}
-  baseCooldown: 1
+  baseCooldown: 8
   castPosition: 1
   castType: 2

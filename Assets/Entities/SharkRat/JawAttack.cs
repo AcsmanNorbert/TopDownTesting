@@ -8,12 +8,12 @@ public class JawAttack : MonoBehaviour
 
     public void StartAttack()
     {
-        SpellCasting.SphereExplosion(attackPositionTransform, damage);
+        SpellCasting.SphereBurstCollision(attackPositionTransform, damage);
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(attackPositionTransform.position, damage.explosionRadius);
+        Gizmos.DrawWireSphere(attackPositionTransform.position, damage.hitRadius);
     }
 }

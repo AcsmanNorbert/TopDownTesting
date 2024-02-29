@@ -3,36 +3,42 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
-    private Rigidbody rb;
-
     [Header("Data")]
     public float maxHealth;
-    public float currentHealth;
-    public bool invulnarable;
+    public static float currentHealth { get; private set; }
+    [SerializeField] float hitInvulnerabilityTimer;
+    bool hitInvulnerable;
+    public static bool playerInvulnerable { private set; get; }
+
+    [SerializeField] bool invulnerabilityCheat;
 
     private void Start()
     {
         currentHealth = maxHealth;
-        rb = gameObject.GetComponent<Rigidbody>();
+    }
+    private void Update()
+    {
+        if (invulnerabilityCheat || PlayerMovement.isDashing || hitInvulnerable)        
+            playerInvulnerable = true;        
+        else
+            playerInvulnerable = false;
     }
 
     public void DoDamage(float damage, Damage.DamageType dmgType, Transform damager)
     {
-        if (!invulnarable)
-        {
-            currentHealth -= damage;
-            if (currentHealth <= 0f)
-                StartCoroutine(Dies());
-        }
+        if (playerInvulnerable) return;
+
+        currentHealth -= damage;
+        if (currentHealth <= 0f)
+            GameManager.i.SetGameState(GameManager.GameState.Dead);
+        if(hitInvulnerabilityTimer > 0)
+            StartCoroutine(HitInvulnerability());
     }
 
-    private IEnumerator Dies()
+    private IEnumerator HitInvulnerability()
     {
-        rb.freezeRotation = false;
-        rb.velocity += transform.forward;
-        GameObject.Destroy(this);
-
-        yield return new WaitForSeconds(10f);
-        GameObject.Destroy(gameObject);
+        hitInvulnerable = true;
+        yield return new WaitForSeconds(hitInvulnerabilityTimer); 
+        hitInvulnerable = false;
     }
 }

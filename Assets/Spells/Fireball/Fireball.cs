@@ -9,13 +9,12 @@ public class Fireball : MonoBehaviour
     [SerializeField] GameObject explosion;
     [SerializeField] Rigidbody rigibody;
     [SerializeField] float projectileSpeed;
-    [SerializeField] Damage damage;
-    [SerializeField] List<Collider> projectileColliders;
+    [Space(10)]
+    [SerializeField] Damage directDamage;
+    [SerializeField] Damage explosionDamage;
 
     [Space(3)]
-    [SerializeField] bool drawGizmos = true;
-
-    bool hasHit;
+    public bool drawGizmos = true;
 
     private void Start()
     {
@@ -24,26 +23,18 @@ public class Fireball : MonoBehaviour
 
     private void Update()
     {
-        if (!hasHit)
+        if (SpellCasting.SphereContinuousCollision(transform, directDamage, out List<Collider> colliders))
         {
-            if (SpellCasting.SphereProjectile(transform, damage, out List<Collider> colliders))
-            {
-                projectileColliders = colliders;
-                if (damage.explosionDamage > 0)
-                    SpellCasting.SphereExplosion(transform, damage);
-                SelfDestroy();
-            }
+            SpellCasting.SphereBurstCollision(transform, explosionDamage);
+            SelfDestroy();
         }
-        else
-            if (visualEffect.aliveParticleCount == 0)
-                Destroy(gameObject);
     }
 
     public void SelfDestroy()
     {
         rigibody.velocity = new Vector3(0f, 0f, 0f);
         visualEffect.Stop();
-        hasHit = true;
+        Destroy(this);
     }
 
     private void OnDrawGizmos()
@@ -51,9 +42,9 @@ public class Fireball : MonoBehaviour
         if (drawGizmos)
         {
             Gizmos.color = new Color(0f, 1f, 0f, 0.5f);
-            Gizmos.DrawSphere(transform.position, damage.hitRadius);
+            Gizmos.DrawSphere(transform.position, directDamage.hitRadius);
             Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
-            Gizmos.DrawSphere(transform.position, damage.explosionRadius);
+            Gizmos.DrawSphere(transform.position, directDamage.hitRadius);
         }
     }
 }

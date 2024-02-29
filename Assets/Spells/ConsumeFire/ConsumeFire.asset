@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ConsumeFire
   m_EditorClassIdentifier: 
   prefab: {fileID: 748322990686515211, guid: a9778defdd113c442a0df3bc50235976, type: 3}
-  baseCooldown: 1
+  baseCooldown: 25
   castPosition: 0
   castType: 3

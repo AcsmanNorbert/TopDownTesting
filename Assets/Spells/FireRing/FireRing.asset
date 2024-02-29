@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FireRing
   m_EditorClassIdentifier: 
   prefab: {fileID: 6068681137107820817, guid: 30dc611e45262a04d85f10dfeb7660dc, type: 3}
-  baseCooldown: 1
+  baseCooldown: 10
   castPosition: 0
   castType: 2

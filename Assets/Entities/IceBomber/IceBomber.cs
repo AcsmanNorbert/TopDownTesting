@@ -1,50 +1,41 @@
-using System.Collections;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class IceBomber : MonoBehaviour
 {
     [SerializeField] EnemyNavMesh navMeshAgent;
-
-    [Space(3)]
-    [Header("Data")]
-    [SerializeField] float damage;
-    [SerializeField] float explosionRadius;
-    [SerializeField] float explosionDelay;
-    [SerializeField] LayerMask layerMask;
+    [SerializeField] Damage damage;
+    [SerializeField] GameObject explosionPrefab;
+    VisualEffect visualEffect;
+    [SerializeField] bool hasRing;
+    [SerializeField] float lifeTime = 1;
 
     public bool showGizmos;
 
-    public void StartExplosion()
+    public void DoExplosion()
     {
-        StartCoroutine(Explode());
-    }
+        SpellCasting.SphereBurstCollision(transform, damage);
 
-    IEnumerator Explode()
-    {
-        yield return new WaitForSeconds(explosionDelay);
+        GameObject explosion = Instantiate(explosionPrefab);
+        explosion.transform.position = transform.position;
+        visualEffect = explosion.GetComponent<VisualEffect>();
 
-        if(navMeshAgent.currentState != EnemyNavMesh.State.Dead)
-        {
-            Collider[] explosionHit = Physics.OverlapSphere(transform.position, explosionRadius, ~layerMask);
-            foreach (var item in explosionHit)
-            {
-                IDamageable damageable = item.gameObject.GetComponent<IDamageable>();
-                if (damageable != null)
-                {
-                    Debug.Log(item.gameObject.name);
-                    damageable.DoDamage(damage, Damage.DamageType.AreaOfEffect, transform);
-                }
-            }
-            Destroy(gameObject);
-        }
+        visualEffect.SetFloat("Size", damage.hitRadius);
+        visualEffect.SetFloat("LifeTime", lifeTime);
+        int hasRingInt = hasRing == false ? 0 : 1;
+        visualEffect.SetInt("HasRing", hasRingInt);
+
+        visualEffect.Play();
+
+        Destroy(gameObject);        
     }
 
     private void OnDrawGizmos()
     {
         if (showGizmos)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, explosionRadius);
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(transform.position, damage.hitRadius);
         }
     }
 }
