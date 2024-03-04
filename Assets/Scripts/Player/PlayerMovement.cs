@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Rigidbody rb;
     [SerializeField] Transform tailTarget;
     [SerializeField] Animator animator;
+    [SerializeField] PlayerHealth playerHealth;
 
     [SerializeField] float speed = 4f;
     [SerializeField] float currentSpeed;
@@ -15,12 +16,14 @@ public class PlayerMovement : MonoBehaviour
     //[SerializeField] private float rotationSpeed = 15f;
 
     [Space(3)]
-    public bool canDash = true;
     [SerializeField] float dashSpeed = 1.5f;
-    [SerializeField] float dashTimer = 0.2f;
-    public float dashCooldown = 1;
+    [SerializeField] float dashDuration = 0.2f;
+    [SerializeField] float dashInvulnDuration = 0.5f;
+    public bool canDash { private set; get; } = true;
+    public float dashCooldown { private set; get; } = 1;
     public float dashCurrentCooldown { private set; get; }
-    public static bool isDashing { private set; get; }
+
+    bool isDashing;
 
     void Start()
     {
@@ -28,11 +31,13 @@ public class PlayerMovement : MonoBehaviour
             animator = mesh.GetComponent<Animator>();
         if (rb == null)
             rb = GetComponent<Rigidbody>();
+        if (playerHealth == null)
+            playerHealth = GetComponent<PlayerHealth>();
     }
 
     private void Update()
     {
-        if (GameManager.isPaused) return;
+        if (GameManager.i.isPaused) return;
 
         horizontalMovement = Input.GetAxis("Horizontal");
         verticalMovement = Input.GetAxis("Vertical");
@@ -51,23 +56,25 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator DashDuration()
     {
         dashCurrentCooldown = dashCooldown;
+        rb.useGravity = false;
         if (rb.velocity == Vector3.zero)
             rb.velocity = mesh.transform.forward * currentSpeed * dashSpeed;
         else rb.velocity = InputMovement().normalized * currentSpeed * dashSpeed;
 
         isDashing = true;
-        yield return new WaitForSeconds(dashTimer);
+        playerHealth.MakeInvulnerable(dashInvulnDuration);
+        yield return new WaitForSeconds(dashDuration);
         isDashing = false;
+        rb.useGravity = true;
     }
 
     private void FixedUpdate()
     {
-        if (GameManager.isPaused) return;
+        if (GameManager.i.isPaused) return;
 
         #region MOVEMENT
         Vector3 inputMovement = InputMovement();
-        if (!isDashing)
-            rb.velocity = inputMovement;
+        if (!isDashing) rb.velocity = inputMovement;
 
         //float moveDistance = Vector3.Distance(inputMovement, mesh.transform.position);
         animator.SetFloat("walkingSpeed", Mathf.Abs(horizontalMovement) + Mathf.Abs(verticalMovement));

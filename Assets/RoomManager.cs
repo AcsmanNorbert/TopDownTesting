@@ -6,8 +6,8 @@ using Random = UnityEngine.Random;
 
 public class RoomManager : MonoBehaviour
 {
-    public static int currentDifficultyTokens { private set; get; }
-    public static int currentDifficulty { private set; get; }
+    public int currentDifficultyTokens { private set; get; }
+    public int currentDifficulty { private set; get; }
     [SerializeField] GameObject playerRef;
     [SerializeField] float spawnInterval = 10;
     float timer;

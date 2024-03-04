@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    #region SETUP
     public static GameManager i { get; private set; }
 
     void Start()
@@ -10,12 +9,12 @@ public class GameManager : MonoBehaviour
         if (i == null)
             i = this;
     }
-    #endregion
 
     public DamageNumberHandler numberDisplay;
     public GameObject player;
+    public RoomManager roomManager;
 
-    public static bool isPaused { private set; get; } = false;
+    public bool isPaused { private set; get; } = false;
 
     public void PauseGame(bool doPause)
     {
@@ -39,7 +38,7 @@ public class GameManager : MonoBehaviour
         Pause
     }
 
-    public static GameState currentGameState { get; set; } = GameState.Playing;
+    public GameState currentGameState { get; set; } = GameState.Playing;
 
     public void SetGameState(GameState newState)
     {

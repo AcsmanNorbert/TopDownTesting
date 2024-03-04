@@ -14,6 +14,6 @@ public class DifficultyUI : MonoBehaviour
 
     private void RoomManager_OnDifficultyIncrease(object sender, EventArgs e)
     {
-        text.text = (RoomManager.currentDifficulty).ToString();
+        text.text = (GameManager.i.roomManager.currentDifficulty).ToString();
     }
 }

@@ -5,40 +5,39 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [Header("Data")]
     public float maxHealth;
-    public static float currentHealth { get; private set; }
-    [SerializeField] float hitInvulnerabilityTimer;
-    bool hitInvulnerable;
-    public static bool playerInvulnerable { private set; get; }
+    public float currentHealth { get; private set; }
+    public float currentInvulnTimer { get; private set; }
 
-    [SerializeField] bool invulnerabilityCheat;
+    [SerializeField] float hitInvulnTimer;
+    [SerializeField] float genericInvulnTimer;
+    [SerializeField] bool invulnerabilityCheat; 
 
     private void Start()
     {
         currentHealth = maxHealth;
     }
+
     private void Update()
     {
-        if (invulnerabilityCheat || PlayerMovement.isDashing || hitInvulnerable)        
-            playerInvulnerable = true;        
-        else
-            playerInvulnerable = false;
+        if (currentInvulnTimer > 0)
+            currentInvulnTimer -= Time.deltaTime;
     }
 
     public void DoDamage(float damage, Damage.DamageType dmgType, Transform damager)
     {
-        if (playerInvulnerable) return;
+        if (invulnerabilityCheat) return;
+        if (currentInvulnTimer > 0) return;
 
         currentHealth -= damage;
         if (currentHealth <= 0f)
             GameManager.i.SetGameState(GameManager.GameState.Dead);
-        if(hitInvulnerabilityTimer > 0)
-            StartCoroutine(HitInvulnerability());
+
+        MakeInvulnerable(hitInvulnTimer);
     }
 
-    private IEnumerator HitInvulnerability()
+    public void MakeInvulnerable(float duration)
     {
-        hitInvulnerable = true;
-        yield return new WaitForSeconds(hitInvulnerabilityTimer); 
-        hitInvulnerable = false;
+        if(currentInvulnTimer < duration)
+            currentInvulnTimer = duration;
     }
 }

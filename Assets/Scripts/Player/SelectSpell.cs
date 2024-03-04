@@ -11,7 +11,7 @@ public class SelectSpell : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.isPaused) return;
+        if (GameManager.i.isPaused) return;
 
         if (Input.GetKey(KeyCode.Mouse0))
             CastSpell(0);
