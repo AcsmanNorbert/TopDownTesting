@@ -1,24 +1,36 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthUI : MonoBehaviour
 {
     PlayerHealth playerHealth;
-    public TMP_Text text;
-    Color baseColor;
+    [SerializeField] TMP_Text text;
+    [SerializeField] Image image;
+    Color textBaseColor;
+    Color imageBaseColor;
 
     private void Start()
     {
         playerHealth = GameManager.i.player.GetComponent<PlayerHealth>();
-        baseColor = text.color;
+        textBaseColor = text.color;
+        imageBaseColor = image.color;
     }
 
+    //should upgrade this to an event
     void Update()
     {
-        text.text = playerHealth.currentHealth.ToString();
+        text.text = Mathf.Clamp(playerHealth.currentHealth, 0, float.MaxValue) + "/" + playerHealth.maxHealth;
+        image.fillAmount = Mathf.Clamp(playerHealth.currentHealth / playerHealth.maxHealth, 0, 1);
         if (playerHealth.currentInvulnTimer > 0)
+        {
             text.color = Color.yellow;
+            image.color = Color.white;
+        }
         else
-            text.color = baseColor;
+        {
+            text.color = textBaseColor;
+            image.color = imageBaseColor;
+        }
     }
 }

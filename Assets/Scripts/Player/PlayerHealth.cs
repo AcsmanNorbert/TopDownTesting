@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IDamageable
@@ -33,6 +32,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             GameManager.i.SetGameState(GameManager.GameState.Dead);
 
         MakeInvulnerable(hitInvulnTimer);
+    }
+
+    public void GainHealth(float health)
+    {
+        maxHealth += health;
+        currentHealth = maxHealth;
     }
 
     public void MakeInvulnerable(float duration)

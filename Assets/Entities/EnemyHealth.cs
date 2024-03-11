@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using static Damage;
 
@@ -10,6 +11,12 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     bool isDead;
 
     [SerializeField] float moneyReward;
+
+    public float Money
+    {
+        get => moneyReward;
+        set => moneyReward = value;
+    }
 
     private void Start()
     {
@@ -43,7 +50,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void Dies()
     {
-        MoneyManager.GainMoney(moneyReward);
+        MoneyManager.GainMoney(moneyReward * GameManager.i.roomManager.currentDifficulty);
         if (enemyNavMesh != null)
         {
             enemyNavMesh.SetState(EnemyNavMesh.State.Dead);

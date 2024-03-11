@@ -1,32 +1,45 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 public class SharkmancerAttack : MonoBehaviour
 {
     [SerializeField] GameObject summonPrefab;
     [SerializeField] int maxSummonCount = 5;
-    [SerializeField][FormerlySerializedAs("boundSize")] float summonBoundSize = 10;
+    [SerializeField] int attacksBeforeSummon = 9;
+    [SerializeField] float summonBoundSize = 10;
     [Space(10)]
     [SerializeField] GameObject projectilePrefab;
-    [SerializeField] Transform shootingPosition;
+    [SerializeField] List<Transform> shootingPositions; 
+    EnemyNavMesh enemyNavMesh;
 
-    Bounds summonBounds;
     List<EnemyHealth> currentSummons = new List<EnemyHealth>();
-    static float attacksBeforeSummon = 3;
-    float attacksLeftToUse;
-
+    int attacksLeftToUse;
+    [Space(10)]
     public UnityEvent OnProjectileAttack = new UnityEvent();
+    public UnityEvent OnSummonShark = new UnityEvent();
 
-    private void OnValidate()
+    private void Awake()
     {
-        summonBounds.size = new Vector3(summonBoundSize, 0, summonBoundSize);
+        enemyNavMesh = GetComponent<EnemyNavMesh>();
+    }
+
+    private void Start()
+    {
+        attacksLeftToUse = 0;
     }
 
     public void DoAttack()
     {
-        summonBounds.center = transform.position;
+        if (attacksLeftToUse <= 0 && SummonableCount() > 0)
+            OnSummonShark?.Invoke();
+        else
+            OnProjectileAttack?.Invoke();
+    }
+
+    private float SummonableCount()
+    {
         List<EnemyHealth> deadList = new List<EnemyHealth>();
 
         foreach (var item in currentSummons)
@@ -35,28 +48,34 @@ public class SharkmancerAttack : MonoBehaviour
         foreach (var item in deadList)
             currentSummons.Remove(item);
 
-        float missingCount = maxSummonCount - currentSummons.Count;
-
-        if (attacksLeftToUse <= 0 && missingCount <= maxSummonCount)
-            DoSummon(missingCount);
-        else
-            DoProjectileAttack();
+        return maxSummonCount - currentSummons.Count;
     }
 
-    private void DoProjectileAttack()
+    private void DoProjectileAttack(int position)
     {
+        if (enemyNavMesh.currentState == EnemyNavMesh.State.Dead) return;
         attacksLeftToUse--;
-        OnProjectileAttack?.Invoke();
-        SpellCasting.ShootProjectile(projectilePrefab, shootingPosition);
+        SpellCasting.ShootProjectile(projectilePrefab, shootingPositions[position]);
     }
 
-    private void DoSummon(float summonCount)
+    private void DoSummonAttack()
     {
+        if (enemyNavMesh.currentState == EnemyNavMesh.State.Dead) return;
+
+        Bounds summonBounds = new Bounds();
+        summonBounds.size = new Vector3(summonBoundSize, 0, summonBoundSize);
+        summonBounds.center = transform.position;
+
         attacksLeftToUse = attacksBeforeSummon;
-        for (int i = 0; i < summonCount; i++)
+        for (int i = 0; i < SummonableCount(); i++)
         {
             GameObject summon = Instantiate(summonPrefab);
-            currentSummons.Add(summon.GetComponent<EnemyHealth>());
+            NavMeshAgent navMesh = summon.GetComponent<NavMeshAgent>();
+            navMesh.enabled = false;
+
+            EnemyHealth summonHealth = summon.GetComponent<EnemyHealth>();
+            summonHealth.Money = 1;
+            currentSummons.Add(summonHealth);
 
             Vector3 teleportLocation = new(
                 Random.Range(summonBounds.min.x, summonBounds.max.x),
@@ -64,6 +83,10 @@ public class SharkmancerAttack : MonoBehaviour
                 Random.Range(summonBounds.min.z, summonBounds.max.z));
             summon.transform.position = teleportLocation;
             summon.transform.eulerAngles = transform.forward;
+
+            navMesh.enabled = true;
+            EnemyNavMesh enemyNavMesh = summon.GetComponent<EnemyNavMesh>();
+            enemyNavMesh.findTargetImmediately = true;
         }
     }
 
@@ -71,6 +94,6 @@ public class SharkmancerAttack : MonoBehaviour
     {
         Gizmos.color = Color.magenta;
         Vector3 gizmoPosition = new Vector3(transform.position.x, 0.1f, transform.position.z);
-        Gizmos.DrawWireCube(gizmoPosition, summonBounds.size);
+        Gizmos.DrawWireCube(gizmoPosition, new Vector3(summonBoundSize, 0, summonBoundSize));
     }
 }

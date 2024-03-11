@@ -10,7 +10,8 @@ public class Firewall : MonoBehaviour
     [Header("Data")]
     [SerializeField] Damage damage;
     [SerializeField][Range(0, 10)] float duration = 5;
-    [SerializeField] float tickTimer = 0.2f;
+    [SerializeField] float ticksPerSecond = 2;
+    float timer;
 
     [Space(3)]
     [SerializeField] LayerMask projectileMask;
@@ -18,8 +19,6 @@ public class Firewall : MonoBehaviour
 
     [SerializeField] bool drawGizmos;
     bool isPlaying;
-
-    List<Collider> hitColliders = new List<Collider>();
 
     private void Start()
     {
@@ -35,27 +34,15 @@ public class Firewall : MonoBehaviour
         if (isPlaying)
             if (visualEffect.aliveParticleCount == 0)
                 Destroy(gameObject);
-        /*
-        if (SpellCasting.BoxBurstCollision(transform, damage, out List<Collider> colliders))
+
+        if (timer <= 0)
         {
-            foreach (var collider in colliders)
-            {
-                bool wasHit = false;
-
-                if (hitColliders != null)
-                    foreach (var alreadyDamaged in hitColliders)
-                        if (collider == alreadyDamaged)
-                            wasHit = true;
-
-                if (!wasHit)
-                {
-                    hitColliders.Add(collider);
-                    StartCoroutine(DelayDMG(collider));
-
-                    collider.GetComponent<IDamageable>().DoDamage(damage.baseDamage, Damage.DamageType.Direct, transform);
-                }
-            }
-        }*/
+            timer = 1 / ticksPerSecond;
+            Debug.Log("sadge");
+            SpellCasting.BoxBurstCollision(transform, damage);
+        }
+        else
+            timer -= Time.deltaTime;
 
         if (!blockProjectile) return;
 
@@ -76,17 +63,10 @@ public class Firewall : MonoBehaviour
         isPlaying = true;
     }
 
-    private IEnumerator DelayDMG(Collider collider)
-    {
-        yield return new WaitForSeconds(tickTimer);
-        hitColliders.Remove(collider);
-    }
-
     private void OnDrawGizmos()
     {
         if (drawGizmos)
         {
-
             Matrix4x4 gizmoMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
             Gizmos.matrix = gizmoMatrix;
             Gizmos.color = Color.red;

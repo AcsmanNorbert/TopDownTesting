@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 public class JawAttack : MonoBehaviour
@@ -6,7 +5,7 @@ public class JawAttack : MonoBehaviour
     [SerializeField] Damage damage;
     [SerializeField] Transform attackPositionTransform;
 
-    public void StartAttack()
+    public void DoJawAttack()
     {
         SpellCasting.SphereBurstCollision(attackPositionTransform, damage);
     }

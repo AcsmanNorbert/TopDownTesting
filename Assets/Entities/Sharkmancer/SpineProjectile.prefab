@@ -68,15 +68,15 @@ MonoBehaviour:
     layerMask:
       serializedVersion: 2
       m_Bits: 1024
-    baseDamage: 1
+    baseDamage: 3
     hitRadius: 1
     hitBounds: {x: 0, y: 0, z: 0}
     fireDamage: 0
     damageType: 0
   hitPosition: {fileID: 4306828042189825972}
-  maxDistance: 10
-  maxLifeTime: 10
-  speed: 10
+  maxDistance: 20
+  maxLifeTime: 20
+  speed: 15
 --- !u!1 &4176816078202750416
 GameObject:
   m_ObjectHideFlags: 0

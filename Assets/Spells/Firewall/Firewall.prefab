@@ -53,11 +53,11 @@ MonoBehaviour:
       m_Bits: 512
     baseDamage: 0
     hitRadius: 0
-    hitBounds: {x: 6, y: 0, z: 2}
+    hitBounds: {x: 6, y: 2, z: 2}
     fireDamage: 1
     damageType: 0
   duration: 5
-  tickTimer: 0.5
+  ticksPerSecond: 2
   projectileMask:
     serializedVersion: 2
     m_Bits: 256

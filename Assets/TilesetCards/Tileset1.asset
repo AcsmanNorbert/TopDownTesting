@@ -15,9 +15,9 @@ MonoBehaviour:
   enemyCards:
   - entity: {fileID: 8624895611397761407, guid: 28dbeaf8a2985e84686e90d528747dcb, type: 3}
     count: 1
-    weighting: 4
+    weighting: 2
     minDifficulty: 1
-    maxDifficulty: 3
+    maxDifficulty: 5
   - entity: {fileID: 8624895611397761407, guid: 28dbeaf8a2985e84686e90d528747dcb, type: 3}
     count: 3
     weighting: 1
@@ -25,17 +25,12 @@ MonoBehaviour:
     maxDifficulty: 5
   - entity: {fileID: 4359538926504376539, guid: a4c53c2adb91e7f42b38bb2b37ab0aab, type: 3}
     count: 1
-    weighting: 1
-    minDifficulty: 1
-    maxDifficulty: 2
-  - entity: {fileID: 4359538926504376539, guid: a4c53c2adb91e7f42b38bb2b37ab0aab, type: 3}
-    count: 1
     weighting: 2
-    minDifficulty: 3
+    minDifficulty: 0
     maxDifficulty: 5
   - entity: {fileID: 4359538926504376539, guid: a4c53c2adb91e7f42b38bb2b37ab0aab, type: 3}
     count: 2
-    weighting: 1
+    weighting: 2
     minDifficulty: 5
     maxDifficulty: 0
   - entity: {fileID: 2942412882975812256, guid: ce4568e515bc94b4bbdabb4dc452d462, type: 3}
@@ -43,18 +38,18 @@ MonoBehaviour:
     weighting: 2
     minDifficulty: 4
     maxDifficulty: 0
-  - entity: {fileID: 2942412882975812256, guid: ce4568e515bc94b4bbdabb4dc452d462, type: 3}
-    count: 3
-    weighting: 4
-    minDifficulty: 6
-    maxDifficulty: 0
-  - entity: {fileID: 2942412882975812256, guid: ce4568e515bc94b4bbdabb4dc452d462, type: 3}
-    count: 4
-    weighting: 5
-    minDifficulty: 8
-    maxDifficulty: 0
   - entity: {fileID: 3415477533549876822, guid: e4bde1f6b4b3e3c41800399131255574, type: 3}
     count: 1
-    weighting: 3
+    weighting: 1
+    minDifficulty: 5
+    maxDifficulty: 0
+  - entity: {fileID: 6671356406241955627, guid: be14a6356cb72ac44a27df5d1c74b611, type: 3}
+    count: 1
+    weighting: 2
+    minDifficulty: 3
+    maxDifficulty: 6
+  - entity: {fileID: 6671356406241955627, guid: be14a6356cb72ac44a27df5d1c74b611, type: 3}
+    count: 2
+    weighting: 2
     minDifficulty: 5
     maxDifficulty: 0

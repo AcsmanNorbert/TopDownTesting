@@ -274,12 +274,12 @@ MonoBehaviour:
   rb: {fileID: 4913544798152441490}
   tailTarget: {fileID: 4913544796895891990}
   animator: {fileID: 4913544797587459453}
+  playerHealth: {fileID: 4913544798152441493}
   speed: 6
   currentSpeed: 0
-  canDash: 1
   dashSpeed: 6
-  dashTimer: 0.13
-  dashCooldown: 1
+  dashDuration: 0.2
+  dashInvulnDuration: 0.3
 --- !u!114 &4913544798152441493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,7 +293,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
-  hitInvulnerabilityTimer: 2
+  hitInvulnTimer: 1
+  genericInvulnTimer: 0
   invulnerabilityCheat: 0
 --- !u!114 &4913544798152441492
 MonoBehaviour:

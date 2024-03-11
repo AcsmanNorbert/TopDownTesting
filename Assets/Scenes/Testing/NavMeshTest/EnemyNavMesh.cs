@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -100,6 +99,7 @@ public class EnemyNavMesh : MonoBehaviour
 
     private void Update()
     {
+        if (!navMeshAgent.enabled) return;
         if (makeAISleep) return;
 
         switch (currentState)
@@ -239,7 +239,6 @@ public class EnemyNavMesh : MonoBehaviour
     IEnumerator StartAttack()
     {
         doingAttack = true;
-        faceTarget = false;
         OnAttackTrigger?.Invoke();
 
         yield return new WaitForSeconds(stopMovementDuringAttack);
@@ -255,10 +254,15 @@ public class EnemyNavMesh : MonoBehaviour
     }
     #endregion ATTACK
 
+    public void StartFacingTarget() => FaceTarget(true);
+    public void StopFacingTarget() => FaceTarget(false);
+
+    public void FaceTarget(bool doFace) => faceTarget = doFace;
+
     #region DEATH
     // Death
 
-    public static float corpseTimer = 15f;
+    public static float corpseTimer = 8f;
     public static float upwardsYippi = 8f;
     public static float sidewaysYippi = 5f;
     private IEnumerator Dies()
