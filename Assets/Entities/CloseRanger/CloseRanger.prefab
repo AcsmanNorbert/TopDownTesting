@@ -777,7 +777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
-  currentHealth: 7
+  currentHealth: 0
   moneyReward: 10
 --- !u!114 &8004033753377090942
 MonoBehaviour:

@@ -775,9 +775,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e9f3b65dd1f374f8797f520d0e042e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 9
   currentHealth: 0
-  moneyReward: 0
+  moneyReward: 15
 --- !u!95 &2032205745294945721
 Animator:
   serializedVersion: 5

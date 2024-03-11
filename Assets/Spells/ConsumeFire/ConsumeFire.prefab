@@ -64,12 +64,12 @@ MonoBehaviour:
     layerMask:
       serializedVersion: 2
       m_Bits: 512
-    baseDamage: 10
+    baseDamage: 15
     hitRadius: 6
     hitBounds: {x: 0, y: 0, z: 0}
     fireDamage: 2
-    damageType: 0
-  extraDamage: 2
+    damageType: 1
+  extraDamage: 4
   drawGizmos: 1
 --- !u!199 &8279459585293475909
 ParticleSystemRenderer:

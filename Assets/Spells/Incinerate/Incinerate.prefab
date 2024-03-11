@@ -52,7 +52,7 @@ MonoBehaviour:
     layerMask:
       serializedVersion: 2
       m_Bits: 512
-    baseDamage: 1
+    baseDamage: 5
     hitRadius: 5
     hitBounds: {x: 0, y: 0, z: 0}
     fireDamage: 1
